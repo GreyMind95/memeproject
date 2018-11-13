@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- INPUT BOOTSTRAPS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+  </head>
+
+  <body>
+    <!-- SEARCH INPUT BOX -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <input id='search' type="text" placeholder="Search" onchange="search()">
+         </div>
+        <!-- URL INPUT BOX -->
+        <div class="col">
+          <input id="name" type="text" placeholder="Enter Name">
+          <input id="tags" type="text" placeholder="Enter Tag">
+          <input id="URL" type="text" placeholder="Enter URL">
+          <input type="button" value="UPLOAD MEME" onclick="uploadMeme()">
+        </div>
+      </div>
+    </div>
+<!-- SHOW RESULTS -->
+<div class="container">
+  <div class="row">
+    <h1>Results</h1>
+  </div>
+  <div id="results" class="row">
+  </div>
+</div>
+<!-- GET URL FROM TEXTBOX -->
+<script>
+// ADDS URL TO STORAGE
+var memeBox = [];
+function uploadMeme(){
+  var n = document.getElementById("name").value;
+  var t = document.getElementById("tags").value.split(',');
+  var u = document.getElementById("URL").value;
+
+  var meme = {
+    name: n,
+    tags: t,
+    url: u,
+  }
+
+
+
+  //UPLOAD URL TO ARRAY
+  memeBox.push(meme);
+  //SHOW USER THAT UPLOAD WAS COMPLETED
+  alert(meme.name + ' was uploaded!');
+  displayALLMemes();
+}
+//DISPLAY ALL MEMES IN ARRAY
+function displayALLMemes(){
+  //CLEARS RESULTS BEFORE LOOP RUNS AGAIN
+  document.getElementById('results').innerHTML = '';
+  //FOR LOOP WILL RUN AS LONG AS CONDITIONS ARE MET
+  for(var i = 0; i < memeBox.length; i++){
+    //THE .URL TAG IS TO GET THE IMAGE ONTO THE WEBPAGE
+    document.getElementById("results").innerHTML += '<img src=" '+ memeBox[i].url +'">';
+// ASKS FOR THE VALUE AT SAID INDEX
+    memeBox[i]
+  }
+}
+
+function search(){
+  var input = document.getElementById('search').value;
+  //CLEARS PATH BEFORE NEXT INPUT
+  document.getElementById('results').innerHTML = '';
+  for(var i = 0; i < memeBox.length; i++){
+    if(input == memeBox[i].name){
+      document.getElementById("results").innerHTML += '<img src=" '+ memeBox[i].url +'">';
+        continue; //SKIPS TO THE NEXT OBJECT IN THE ARRAY, DOES NOT BOTHER SEARCHING BY TAGS
+    }
+  }
+for(var j = 0; j < memeBox[i].tags.length; j++){
+  if(input == memeBox[i].tags[j]){
+    document.getElementById('results').innerHTML += '<img src="'+ memeBox[i].url +'">';
+        break;//STOPS THIS LOOP FROM RUNNING ANYMORE
+  }
+}
+}
+</script>
+  </body>
+
+</html>
